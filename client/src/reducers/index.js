@@ -1,3 +1,4 @@
-function rootReducer() {}
+/* function rootReducer() {}
 
 export default rootReducer;
+ */

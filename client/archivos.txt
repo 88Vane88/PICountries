@@ -4,3 +4,6 @@ npm i react-router-dom
 npm i axios
 npm i react-redux
 npm i redux-devtools-extension
+
+1. store--index.js
+2. index.js
