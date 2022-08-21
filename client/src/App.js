@@ -1,14 +1,19 @@
 import "./App.css";
 import React from "react";
-import { Route } from "react-router-dom";
 import Inicio from "./components/LandingPage/LandingPage";
-/* import {Switch} from "react-router-dom"  */
+import Home from "./components/Home/Home";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <Route exact path="/" component={Inicio} />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Switch>
+          <Route exact path="/" component={Inicio} />
+          <Route path="/home" component={Home} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
