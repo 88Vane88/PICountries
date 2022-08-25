@@ -9,6 +9,21 @@ export function getCountries() {
     });
   };
 }
+export function getNameCountry(name) {
+  return async function (dispatch) {
+    try {
+      var pedidoApi = await axios.get(
+        `http://localhost:3001/countries/${name}`
+      );
+      return dispatch({
+        type: "GET_NAME_COUNTRY",
+        payload: pedidoApi.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
 
 console.log(getCountries());
 /* export function createActivity() {

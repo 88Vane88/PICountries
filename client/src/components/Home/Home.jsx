@@ -1,16 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 /* import style from "./LandingPage.module.css"; */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // import {useState} from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { getCountries } from "../../actions/index";
 import Country from "../Country/Country";
-/* import Paginado from "../Paginado/Paginado"; */
+import Paginado from "../Paginado/Paginado";
+import SearchBar from "../SearchBar/SearchBar";
 
 export default function Home() {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries); //me trae todo del estado de los paises
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [countriesPerPage, setCountriesPerPage] = useState(10);
+  const indexOfLastCountry = currentPage * countriesPerPage; //10
+  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage; //0
+  const currentCountries = allCountries.slice(
+    indexOfFirstCountry,
+    indexOfLastCountry
+  );
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     dispatch(getCountries());
@@ -27,13 +40,16 @@ export default function Home() {
     <div>
       <Link to="/form">Crear Actividad</Link>
       <h1>Conocé los países</h1>
-      <button
-        onClick={(e) => {
-          handleClick(e);
-        }}
-      >
-        volver a cargar todos los países
-      </button>
+      {
+        <button
+          onClick={(e) => {
+            handleClick(e);
+          }}
+        >
+          volver a cargar todos los países
+        </button>
+      }
+      <SearchBar />
       <div>
         <select>
           <option value="ascAlf">Ascendente</option>
@@ -52,7 +68,12 @@ export default function Home() {
           <option value="created">Creados</option>
           <option value="Api">Existentes</option>
         </select>
-        {allCountries?.map((c) => {
+        <Paginado
+          countriesPerPage={countriesPerPage}
+          allCountries={allCountries.length}
+          paginado={paginado}
+        />
+        {currentCountries?.map((c) => {
           //existe countries? si? mapealos
           return (
             <Link to={"/details/" + c.id} key={c.id}>

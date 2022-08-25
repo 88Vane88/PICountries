@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-
+import axios from "axios";
 export default function Form() {
   const [activity, setActivity] = useState({
     //setActivity modifica activity
@@ -11,8 +11,14 @@ export default function Form() {
   });
   const difficulty = ["1", "2", "3", "4", "5"];
   const seasons = ["Summer", "Spring", "Winter", "Autumn"];
-  const [errorButton, setErrorButton] = useState(true);
+
   const [erroresFormulario, setErroresFormulario] = useState({}); //es un obj
+  const [errorButton, setErrorButton] = useState(
+    Object.keys(erroresFormulario).length < 1 ? false : true
+  );
+
+  const expresionName = /^[a-zA-ZñÑáÁéÉíÍóÓuÚ]*$/;
+  const expresionDuration = /^[0-9]*$/;
 
   function handleChange(e) {
     setActivity({
@@ -20,11 +26,13 @@ export default function Form() {
       [e.target.name]: e.target.value, //name es el input, value lo que recibo
     });
     setErroresFormulario(validar(activity));
+    console.log(activity);
     setActivity({
       ...activity,
       [e.target.name]: e.target.value,
     });
     setErroresFormulario(validar(activity));
+    console.log(activity);
   }
 
   /*   function handleChangeDuration(e) {
@@ -34,8 +42,12 @@ export default function Form() {
     });
   } */
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
+    setErroresFormulario(validar(activity));
+    await axios.post("http://localhost:3001/activity", activity);
+
+    console.log(activity);
   }
 
   function handleDifficulty(e) {
@@ -43,18 +55,23 @@ export default function Form() {
       ...activity,
       difficulty: e.target.value,
     });
+    console.log(activity);
   }
   function handleSeasons(e) {
     setActivity({
       ...activity,
       seasons: e.target.value,
     });
+    console.log(activity);
   }
-  function validar(datos) {
+
+  function validar(activity) {
     let errores = {};
-    if (!datos.name) errores.name = "Campo requerido";
-    if (typeof datos.name !== "string") errores.name = "Debe ser un string";
-    /* if(validName(datos.name)) errores.name="" */
+    if (!activity.name) errores.name = "Campo requerido";
+    if (!expresionName.test(activity.name)) errores.name = "Sólo letras";
+    if (!activity.seasons) errores.seasons = "Campo obligatorio";
+    if (!expresionDuration.test(activity.duration))
+      errores.duration = "Sólo números";
 
     return errores;
   }
@@ -74,6 +91,8 @@ export default function Form() {
               name="name"
               value={activity.name}
               onChange={handleChange}
+              placeholder="completar"
+              type="text"
             ></input>
             {erroresFormulario.name ? (
               <h4>
@@ -100,10 +119,11 @@ export default function Form() {
               name="duration"
               value={activity.duration}
               onChange={handleChange}
+              placeholder="completar"
             ></input>
-            {erroresFormulario.name ? (
+            {erroresFormulario.duration ? (
               <h4>
-                <small>{erroresFormulario.name}</small>
+                <small>{erroresFormulario.duration}</small>
               </h4>
             ) : (
               false
@@ -119,8 +139,15 @@ export default function Form() {
                   {el}
                 </option>
               ))}
+              {/* {erroresFormulario.seasons ? (
+                <h4>
+                  <small>{erroresFormulario.seasons}</small>
+                </h4>
+              ) : (
+                false
+              )} */}
             </select>
-            <button type="submit" disabled={errorButton ? true : false}>
+            <button type="submit" disabled={true}>
               Crear
             </button>
           </div>

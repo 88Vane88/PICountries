@@ -13,8 +13,15 @@ function rootReducer(state = initialState, action) {
     case "GET_COUNTRIES":
       return {
         ...state,
-        countries: action.payload, //se almacena lo del back
+        countries: action.payload,
+        //se almacena lo del back
       };
+    case "GET_NAME_COUNTRY":
+      return {
+        ...state,
+        countries: action.payload,
+      };
+
     default:
       return state;
   }
