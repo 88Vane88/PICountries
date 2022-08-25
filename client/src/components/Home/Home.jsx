@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 /* import style from "./LandingPage.module.css"; */
 import { useEffect } from "react";
-//import { useState } from "react";
+// import {useState} from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { getCountries } from "../../actions/index";
 import Country from "../Country/Country";
+/* import Paginado from "../Paginado/Paginado"; */
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ export default function Home() {
   }
   return (
     <div>
-      <Link to="/countries">Crear Activity</Link>
+      <Link to="/form">Crear Actividad</Link>
       <h1>Conocé los países</h1>
       <button
         onClick={(e) => {
@@ -54,7 +55,7 @@ export default function Home() {
         {allCountries?.map((c) => {
           //existe countries? si? mapealos
           return (
-            <Link to={"/home/" + c.id} key={c.id}>
+            <Link to={"/details/" + c.id} key={c.id}>
               <Country
                 flags={c.flags}
                 name={c.name}
