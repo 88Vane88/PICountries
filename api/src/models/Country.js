@@ -39,12 +39,6 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      createdInDb: {
-        // para acceder mas facil despues
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: true,
-      },
     },
     {
       timestamps: false,

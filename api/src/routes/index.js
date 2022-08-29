@@ -32,30 +32,34 @@ router.get("/countries", async (req, res) => {
   //traerme todos los countries por nombre.
   //llamar a la api; ver lo que necesito; llamado async a bd; enviar resultados; validar
   //https://restcountries.com/v3/all
-  const name = req.query.name;
-  try {
-    const api = await axios.get("https://restcountries.com/v3/all");
-    const juntos = api.data.map((c) => {
-      const obj = {
-        id: c.cca3,
-        name: c.name.common,
-        flags: c.flags[0],
-        continents: c.continents[0],
-        capital: c.capital ? c.capital[0] : "no tiene capital",
-        subregion: c.subregion ? c.subregion : "no tiene subregión",
-        area: c.area,
-        population: c.population,
-      };
-      return obj;
-    });
+  const name = req.query.name; //guardo lo que me mandan
+  if (!name) {
+    try {
+      const api = await axios.get("https://restcountries.com/v3/all");
+      const juntos = api.data.map((c) => {
+        const obj = {
+          id: c.cca3,
+          name: c.name.common,
+          flags: c.flags[0],
+          continents: c.continents[0],
+          capital: c.capital ? c.capital[0] : "no tiene capital",
+          subregion: c.subregion ? c.subregion : "no tiene subregión",
+          area: c.area,
+          population: c.population,
+        };
+        return obj;
+      });
 
-    await Country.bulkCreate(juntos);
+      let prueba = await Country.findAll();
+      if (prueba.length === 0) {
+        await Country.bulkCreate(juntos);
+      }
 
-    res.json(juntos);
-  } catch (error) {
-    console.log(error);
-  }
-  if (name) {
+      res.json(juntos);
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
     try {
       let coun = await Country.findAll({
         where: {
@@ -68,6 +72,16 @@ router.get("/countries", async (req, res) => {
     } catch (error) {
       console.log("No existe ese país");
     }
+  }
+});
+
+router.get("/countries/:name", async (req, res) => {
+  const { name } = req.params;
+  try {
+    const filtrados = countries.filter((c) => c.name === name);
+    res.json(filtrados);
+  } catch (error) {
+    console.log(error);
   }
 });
 
@@ -113,17 +127,4 @@ Incluir los datos de las actividades turísticas correspondientes
 Obtener los países que coincidan con el nombre pasado como query parameter (No necesariamente tiene que ser una matcheo exacto)
 Si no existe ningún país mostrar un mensaje adecuado
 
-// /countries?name=algo ---> req.query --->objeto porp, valor {......}
-server.get("/countries", (req, res) => {
-  const { c.name } = req.query;
-  if (c.name) {
-    const filtrados = countries.filter(
-      (co) => co.title.includes(term) || p.contents.includes(term)
-    );
-    return res.json(filtrados);
-    //como es un arreglo puedo usar includes
-  }
-  res.json(posts);
-});
-GET ACTIVIT.
 */
