@@ -13,7 +13,7 @@ export function getNameCountry(name) {
   return async function (dispatch) {
     try {
       var pedidoApi = await axios.get(
-        `http://localhost:3001/countries/${name}`
+        `http://localhost:3001/countries?name=${name}`
       );
       return dispatch({
         type: "GET_NAME_COUNTRY",
@@ -22,6 +22,24 @@ export function getNameCountry(name) {
     } catch (error) {
       console.log(error);
     }
+  };
+}
+export function orderByName(payload) {
+  return {
+    type: "ORDER_BY_NAME",
+    payload,
+  };
+}
+export function orderByPoblacion(payload) {
+  return {
+    type: "ORDER_BY_POBLACION",
+    payload,
+  };
+}
+export function filtradoByContinent(payload) {
+  return {
+    type: "FILTRADO_BY_CONTINENT",
+    payload,
   };
 }
 

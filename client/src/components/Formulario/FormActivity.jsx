@@ -1,7 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 export default function Form() {
+  const allCountries = useSelector((state) => state.countries);
+
   const [activity, setActivity] = useState({
     //setActivity modifica activity
     name: "",
@@ -9,12 +14,18 @@ export default function Form() {
     duration: "",
     seasons: "",
   });
+
   const difficulty = ["1", "2", "3", "4", "5"];
-  const seasons = ["Summer", "Spring", "Winter", "Autumn"];
+  const seasons = ["-Seleccionar-", "Summer", "Spring", "Winter", "Autumn"];
 
   const [erroresFormulario, setErroresFormulario] = useState({}); //es un obj
   const [errorButton, setErrorButton] = useState(
     Object.keys(erroresFormulario).length < 1 ? false : true
+  );
+  const [countryID, setCountryID] = useState(
+    allCountries.map((i) => {
+      return { id: i.id, name: i.name };
+    })
   );
 
   const expresionName = /^[a-zA-ZñÑáÁéÉíÍóÓuÚ]*$/;
@@ -35,17 +46,10 @@ export default function Form() {
     console.log(activity);
   }
 
-  /*   function handleChangeDuration(e) {
-    setActivity({
-      ...activity,
-      [e.target.name]: e.target.value,
-    });
-  } */
-
   async function handleSubmit(e) {
     e.preventDefault();
     setErroresFormulario(validar(activity));
-    await axios.post("http://localhost:3001/activity", activity);
+    await axios.post("http://localhost:3001/activities", activity);
 
     console.log(activity);
   }
@@ -57,6 +61,14 @@ export default function Form() {
     });
     console.log(activity);
   }
+
+  /*   function handleCountries(e) {
+    setCountryID({
+      ...activity,
+      countries: e.target.value,
+    });
+  } */
+
   function handleSeasons(e) {
     setActivity({
       ...activity,
@@ -76,22 +88,19 @@ export default function Form() {
     return errores;
   }
 
-  /*  function validName(str) {
-    if (typeof str !== "string") return true; //que sea un string
-    if (str.length < 1) return true; // 
-  } */
-
   return (
     <div>
+      <Link to="/home">Volver</Link>
       <div>
         <form onSubmit={handleSubmit}>
+          <h4>Crear Actividad</h4>
           <div>
             <label>Name</label>
             <input
               name="name"
               value={activity.name}
               onChange={handleChange}
-              placeholder="completar"
+              placeholder="actividad"
               type="text"
             ></input>
             {erroresFormulario.name ? (
@@ -101,6 +110,8 @@ export default function Form() {
             ) : (
               false
             )}
+          </div>
+          <div>
             {/* si hay error, mostramelo, sino no */}
             <label>Difficulty</label>
             <select
@@ -114,12 +125,14 @@ export default function Form() {
                 </option>
               ))}
             </select>
+          </div>
+          <div>
             <label>Duration</label>
             <input
               name="duration"
               value={activity.duration}
               onChange={handleChange}
-              placeholder="completar"
+              placeholder="1, 2..."
             ></input>
             {erroresFormulario.duration ? (
               <h4>
@@ -128,6 +141,8 @@ export default function Form() {
             ) : (
               false
             )}
+          </div>
+          <div>
             <label>Seasons</label>
             <select
               name="seasons"
@@ -147,9 +162,19 @@ export default function Form() {
                 false
               )} */}
             </select>
-            <button type="submit" disabled={true}>
-              Crear
-            </button>
+          </div>
+          <div>
+            <label value="countries">Country: </label>
+            <select name="countries" id="countries">
+              {countryID?.map((i) => (
+                <option key={i.id} value={i.id}>
+                  {i.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <button type="submit">Crear</button>
           </div>
         </form>
       </div>

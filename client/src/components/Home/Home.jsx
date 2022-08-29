@@ -1,10 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { Fragment } from "react";
 /* import style from "./LandingPage.module.css"; */
 import { useEffect, useState } from "react";
 // import {useState} from "react"
 import { useDispatch, useSelector } from "react-redux";
-import { getCountries } from "../../actions/index";
+import {
+  getCountries,
+  orderByName,
+  orderByPoblacion,
+  filtradoByContinent,
+} from "../../actions/index";
 import Country from "../Country/Country";
 import Paginado from "../Paginado/Paginado";
 import SearchBar from "../SearchBar/SearchBar";
@@ -13,7 +19,9 @@ export default function Home() {
   const dispatch = useDispatch();
   const allCountries = useSelector((state) => state.countries); //me trae todo del estado de los paises
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const initial_page = 1;
+
+  const [currentPage, setCurrentPage] = useState(initial_page);
   const [countriesPerPage, setCountriesPerPage] = useState(10);
   const indexOfLastCountry = currentPage * countriesPerPage; //10
   const indexOfFirstCountry = indexOfLastCountry - countriesPerPage; //0
@@ -28,17 +36,40 @@ export default function Home() {
   useEffect(() => {
     dispatch(getCountries());
     if (getCountries().length === 0) {
-      return getCountries();
     }
   });
-  console.log(getCountries);
+
   function handleClick(e) {
     e.preventDefault();
     dispatch(getCountries());
   }
+
+  const [ordAlf, setOrdAlf] = useState("");
+  function handleSortAlf(e) {
+    e.preventDefault();
+    dispatch(orderByName(e.target.value));
+    setCurrentPage(1);
+    setOrdAlf(`Ordenando ${e.target.value}`); //para poder setear, hacer estado local.
+  }
+
+  const [ordPob, setOrdPob] = useState("");
+  function handleSortPob(e) {
+    e.preventDefault();
+    dispatch(orderByPoblacion(e.target.value));
+    setCurrentPage(1);
+    setOrdPob(`Ordenando ${e.target.value}`);
+  }
+  const [filtContinent, setFiltContinent] = useState("");
+  function handleFiltrado(e) {
+    e.preventDefault();
+    dispatch(filtradoByContinent(e.target.value));
+    setCurrentPage(1);
+    setFiltContinent(`Ordenando ${e.target.value}`);
+  }
+
   return (
     <div>
-      <Link to="/form">Crear Actividad</Link>
+      <NavLink to="/form">Crear Actividad</NavLink>
       <h1>Conocé los países</h1>
       {
         <button
@@ -51,23 +82,33 @@ export default function Home() {
       }
       <SearchBar />
       <div>
-        <select>
-          <option value="ascAlf">Ascendente</option>
-          <option value="descAlf">Descendente</option>
+        <h4>Ordenar de forma alfabetica</h4>
+        <select onChange={(e) => handleSortAlf(e)}>
+          <option value="selec">-Seleccionar-</option>
+          <option value="ascAlf">A-Z</option>
+          <option value="descAlf">Z-A</option>
         </select>
-        <select>
-          <option value="ascPob">Ascendente</option>
-          <option value="descPob">Descendente</option>
+        <h4>Ordenar por población</h4>
+        <select onChange={(e) => handleSortPob(e)}>
+          <option value="selec">-Seleccionar-</option>
+          <option value="ascPob">Mayor</option>
+          <option value="descPob">Menor</option>
         </select>
+        <h4>Continentes</h4>
         <select>
-          <option value="Continent">Continente</option>
+          <option value="selec">-Seleccionar-</option>
+          <option value="America">América</option>
+          <option value="Africa">Africa</option>
+          <option value="Antártica">Antática</option>
+          <option value="Asia">Asia</option>
+          <option value="Europa">Europa</option>
+          <option value="Oceanía">Oceanía</option>
+        </select>
+        <h4>Actividad turística</h4>
+        <select>
           <option value="Actividad">Actividad turística</option>
         </select>
-        <select>
-          <option value="All">Todos</option>
-          <option value="created">Creados</option>
-          <option value="Api">Existentes</option>
-        </select>
+
         <Paginado
           countriesPerPage={countriesPerPage}
           allCountries={allCountries.length}
@@ -76,14 +117,17 @@ export default function Home() {
         {currentCountries?.map((c) => {
           //existe countries? si? mapealos
           return (
-            <Link to={"/details/" + c.id} key={c.id}>
-              <Country
-                flags={c.flags}
-                name={c.name}
-                continents={c.continents}
-                key={c.id}
-              />
-            </Link>
+            <Fragment>
+              <NavLink to={"/home/" + c.id} key={c.id}>
+                <Country
+                  flags={c.flags}
+                  name={c.name}
+                  continents={c.continents}
+                  population={c.population}
+                  key={c.id}
+                />
+              </NavLink>
+            </Fragment>
           );
         })}
       </div>
