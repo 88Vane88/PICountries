@@ -1,9 +1,10 @@
 import React from "react";
+import style from "../Country/Country.module.css";
 
 export default function Country({ flags, name, continents, population }) {
   return (
-    <div>
-      <div>
+    <div className={style.global}>
+      <div clasName={style.infoGlobal}>
         <img src={flags} alt="Img not found" width="200px" hight="250px" />
       </div>
       <div>

@@ -1,9 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Fragment } from "react";
-/* import style from "./LandingPage.module.css"; */
+import style from "./Home.module.css";
 import { useEffect, useState } from "react";
-// import {useState} from "react"
+//import {useState} from "react"
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCountries,
@@ -69,58 +68,58 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <NavLink to="/form">Crear Actividad</NavLink>
-      <h1>Conocé los países</h1>
-      {
-        <button
-          onClick={(e) => {
-            handleClick(e);
-          }}
-        >
-          volver a cargar todos los países
-        </button>
-      }
-      <SearchBar />
-      <div>
-        <h4>Ordenar de forma alfabetica</h4>
-        <select onChange={(e) => handleSortAlf(e)}>
-          <option value="selec">-Seleccionar-</option>
-          <option value="ascAlf">A-Z</option>
-          <option value="descAlf">Z-A</option>
-        </select>
-        <h4>Ordenar por población</h4>
-        <select onChange={(e) => handleSortPob(e)}>
-          <option value="selec">-Seleccionar-</option>
-          <option value="ascPob">Mayor</option>
-          <option value="descPob">Menor</option>
-        </select>
-        <h4>Continentes</h4>
-        <select onChange={(e) => handleFiltrado(e)}>
-          <option value="Selec">-Seleccionar-</option>
-          <option value="Todos">Todos</option>
-          <option value="North America">América del norte</option>
-          <option value="South America">América del sur</option>
-          <option value="Africa">Africa</option>
-          <option value="Antarctica">Antática</option>
-          <option value="Asia">Asia</option>
-          <option value="Europe">Europa</option>
-          <option value="Oceania">Oceanía</option>
-        </select>
-        <h4>Actividad turística</h4>
-        <select>
-          <option value="Actividad">Actividad turística</option>
-        </select>
+    <div className={style.img}>
+      <div className={style.contenedor}>
+        <NavLink to="/form">Crear Actividad</NavLink>
+        <h1>Conocé los países</h1>
+        {
+          <button
+            onClick={(e) => {
+              handleClick(e);
+            }}
+          >
+            volver a cargar todos los países
+          </button>
+        }
+        <SearchBar />
+        <div>
+          <h4>Ordenar de forma alfabetica</h4>
+          <select onChange={(e) => handleSortAlf(e)}>
+            <option value="selec">-Seleccionar-</option>
+            <option value="ascAlf">A-Z</option>
+            <option value="descAlf">Z-A</option>
+          </select>
+          <h4>Ordenar por población</h4>
+          <select onChange={(e) => handleSortPob(e)}>
+            <option value="selec">-Seleccionar-</option>
+            <option value="ascPob">Mayor</option>
+            <option value="descPob">Menor</option>
+          </select>
+          <h4>Continentes</h4>
+          <select onChange={(e) => handleFiltrado(e)}>
+            <option value="Selec">-Seleccionar-</option>
+            <option value="Todos">Todos</option>
+            <option value="North America">América del norte</option>
+            <option value="South America">América del sur</option>
+            <option value="Africa">Africa</option>
+            <option value="Antarctica">Antática</option>
+            <option value="Asia">Asia</option>
+            <option value="Europe">Europa</option>
+            <option value="Oceania">Oceanía</option>
+          </select>
+          <h4>Actividad turística</h4>
+          <select>
+            <option value="Actividad">Actividad turística</option>
+          </select>
 
-        <Paginado
-          countriesPerPage={countriesPerPage}
-          allCountries={allCountries.length}
-          paginado={paginado}
-        />
-        {currentCountries?.map((c) => {
-          //existe countries? si? mapealos
-          return (
-            <Fragment>
+          <Paginado
+            countriesPerPage={countriesPerPage}
+            allCountries={allCountries.length}
+            paginado={paginado}
+          />
+          {currentCountries?.map((c) => {
+            //existe countries? si? mapealos
+            return (
               <NavLink to={"/detail/" + c.id} key={c.id}>
                 <Country
                   flags={c.flags}
@@ -130,9 +129,9 @@ export default function Home() {
                   key={c.id}
                 />
               </NavLink>
-            </Fragment>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

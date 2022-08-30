@@ -1,4 +1,5 @@
 import React from "react";
+import style from "../SearchBar/SearchBar.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getNameCountry } from "../../actions/index";
@@ -19,7 +20,7 @@ export default function SearchBar() {
   }
 
   return (
-    <div>
+    <div className={style.global}>
       <input
         type="text"
         placeholder="Buscar país..."

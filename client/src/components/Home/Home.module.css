@@ -1,0 +1,22 @@
+.img {
+  background-color: teal;
+  width: 100%;
+  font-weight: bold;
+  background-image: url("../../img/Mundo.jpg");
+  display: grid;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /*   opacity: 0.7;
+  position: absolute; */
+  /*  background-attachment: scroll; */
+}
+.infoGlobal {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: medium;
+  margin-top: auto;
+  margin-bottom: auto;
+}
