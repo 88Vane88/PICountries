@@ -14,7 +14,7 @@ function App() {
           <Route exact path="/" component={Inicio} />
           <Route path="/home" component={Home} />
           <Route path="/form" component={Form} />
-          <Route path="/home/:id" component={Detail} />
+          <Route path="/detail/:id" component={Detail} />
         </Switch>
       </div>
     </BrowserRouter>

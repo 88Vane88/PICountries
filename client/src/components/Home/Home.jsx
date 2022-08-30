@@ -11,6 +11,7 @@ import {
   orderByPoblacion,
   filtradoByContinent,
 } from "../../actions/index";
+import { postActivities } from "../../actions/index";
 import Country from "../Country/Country";
 import Paginado from "../Paginado/Paginado";
 import SearchBar from "../SearchBar/SearchBar";
@@ -35,9 +36,10 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getCountries());
-    if (getCountries().length === 0) {
-    }
-  });
+  }, [dispatch]);
+  /*     if (getCountries().length === 0) {
+    } */
+  //sin el if. dispatch (gertCountries())},[dispatch])
 
   function handleClick(e) {
     e.preventDefault();
@@ -59,12 +61,11 @@ export default function Home() {
     setCurrentPage(1);
     setOrdPob(`Ordenando ${e.target.value}`);
   }
-  const [filtContinent, setFiltContinent] = useState("");
+
   function handleFiltrado(e) {
     e.preventDefault();
     dispatch(filtradoByContinent(e.target.value));
-    setCurrentPage(1);
-    setFiltContinent(`Ordenando ${e.target.value}`);
+    //action se dispara cuando pasa algo. Tengo que despachar esa accion
   }
 
   return (
@@ -95,14 +96,16 @@ export default function Home() {
           <option value="descPob">Menor</option>
         </select>
         <h4>Continentes</h4>
-        <select>
-          <option value="selec">-Seleccionar-</option>
-          <option value="America">América</option>
+        <select onChange={(e) => handleFiltrado(e)}>
+          <option value="Selec">-Seleccionar-</option>
+          <option value="Todos">Todos</option>
+          <option value="North America">América del norte</option>
+          <option value="South America">América del sur</option>
           <option value="Africa">Africa</option>
-          <option value="Antártica">Antática</option>
+          <option value="Antarctica">Antática</option>
           <option value="Asia">Asia</option>
-          <option value="Europa">Europa</option>
-          <option value="Oceanía">Oceanía</option>
+          <option value="Europe">Europa</option>
+          <option value="Oceania">Oceanía</option>
         </select>
         <h4>Actividad turística</h4>
         <select>
@@ -118,7 +121,7 @@ export default function Home() {
           //existe countries? si? mapealos
           return (
             <Fragment>
-              <NavLink to={"/home/" + c.id} key={c.id}>
+              <NavLink to={"/detail/" + c.id} key={c.id}>
                 <Country
                   flags={c.flags}
                   name={c.name}

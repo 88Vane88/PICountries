@@ -2,6 +2,7 @@
 
 const initialState = {
   countries: [],
+  allCountries: [], //copia del estado de todos los personajes
   detail: [],
   //se puede guardar filtro.
 };
@@ -14,6 +15,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         countries: action.payload,
+        allCountries: action.payload,
         //se almacena lo del back
       };
     case "GET_NAME_COUNTRY":
@@ -71,16 +73,25 @@ function rootReducer(state = initialState, action) {
         ...state,
         countries: sortPoblacion,
       };
-    /* case "FILTRADO_BY_CONTINENT":
-      let arrContinet = [];
-      const América = state.countries.filter((c) => c.continents === "américa") return América.push(arrContinent);
-      const África = state.countries.filter((c) => c.continents === "áfrica");
-      const Antártica = state.countries.filter(
-        (c) => c.continents === "antártica"
-      );
-      const Asia = state.countries.filter((c) => c.continents === "asia");
-      const Europa = state.countries.filter((c) => c.continents === "europa");
-      const Oceanía = state.countries.filter((c) => c.continents === "oceanía"); */
+    case "FILTRADO_BY_CONTINENT":
+      const allCountries = state.allCountries;
+      const statusFilter =
+        action.payload === "Todos"
+          ? allCountries
+          : allCountries.filter((el) => el.continents === action.payload); //el.status seria el e.value.value
+      return {
+        ...state,
+        countries: statusFilter,
+      };
+    case "GET_DETAIL":
+      return {
+        ...state,
+        detail: action.payload,
+      };
+    /*     case "POST_ACTIVITIES": //lo creo en una ruta nueva
+      return {
+        ...state,
+      }; */
 
     default:
       return state;

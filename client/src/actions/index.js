@@ -10,6 +10,7 @@ export function getCountries() {
   };
 }
 export function getNameCountry(name) {
+  //para la searchBar
   return async function (dispatch) {
     try {
       var pedidoApi = await axios.get(
@@ -22,6 +23,27 @@ export function getNameCountry(name) {
     } catch (error) {
       console.log(error);
     }
+  };
+}
+export function getDetail(id) {
+  return async function (dispatch) {
+    try {
+      var pedidoApi = await axios.get(`http://localhost:3001/countries/${id}`);
+      return dispatch({
+        type: "GET_DETAIL",
+        payload: pedidoApi.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function postActivities(payload) {
+  return async function (dispatch) {
+    const info = await axios.post("http://localhost:3001/activities", payload);
+    console.log(info);
+    return info;
   };
 }
 export function orderByName(payload) {
