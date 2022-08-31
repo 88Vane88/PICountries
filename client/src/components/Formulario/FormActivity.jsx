@@ -90,7 +90,7 @@ export default function Form() {
 
   return (
     <div className={style.contenedor}>
-      <div className={style.voler}>
+      <div className={style.volver}>
         <Link to="/home">Volver</Link>
       </div>
       <div>

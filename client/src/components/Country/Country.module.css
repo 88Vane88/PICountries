@@ -13,21 +13,30 @@
 }
 
 .img {
+  width: 200px;
+  height: 150px;
 }
 
 .pais {
   font-family: "Times New Roman", Times, serif;
   font-size: x-large;
+  color: black;
 }
 .cont {
   font-size: medium;
   font-family: "Times New Roman", Times, serif;
+  color: black;
 }
 .pob {
   font-family: "Times New Roman", Times, serif;
   font-size: small;
+  color: black;
 }
 
+.info {
+  text-align: center;
+  padding: 10px;
+}
 /*  display: inline-block; */
 
 /* max o min height, display flex */

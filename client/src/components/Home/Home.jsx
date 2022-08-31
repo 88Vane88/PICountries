@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import style from "./Home.module.css";
 import { useEffect, useState } from "react";
 //import {useState} from "react"
@@ -69,40 +69,41 @@ export default function Home() {
 
   return (
     <div className={style.img}>
-      <div className={style.linkactvity}>
-        <NavLink to="/form">Crear Actividad</NavLink>
+      <div>
+        <button className={style.linkButton}>
+          <Link className={style.linkactvity} to="/form">
+            Crear Actividad
+          </Link>
+        </button>
       </div>
       <div>
-        <h1>Conocé los países</h1>
+        <h1 className={style.titulo}>Conocé los países</h1>
       </div>
-      {
-        <button
-          onClick={(e) => {
-            handleClick(e);
-          }}
-        >
-          volver a cargar todos los países
-        </button>
-      }
-      <div className={style.search}>
-        <SearchBar />
+      <div className={style.buttonCargar}>
+        {
+          <button
+            className={style.buttonCargar}
+            onClick={(e) => {
+              handleClick(e);
+            }}
+          >
+            volver a cargar todos los países
+          </button>
+        }
       </div>
-      <div className={style.ordenamimentos}>
-        <h4>Ordenar de forma alfabetica</h4>
-        <select onChange={(e) => handleSortAlf(e)}>
-          <option value="selec">-Seleccionar-</option>
+      <div className={style.ordenamientos}>
+        <select className={style.select} onChange={(e) => handleSortAlf(e)}>
+          <option value="selec">Orden Alfabético</option>
           <option value="ascAlf">A-Z</option>
           <option value="descAlf">Z-A</option>
         </select>
-        <h4>Ordenar por población</h4>
-        <select onChange={(e) => handleSortPob(e)}>
-          <option value="selec">-Seleccionar-</option>
+        <select className={style.select} onChange={(e) => handleSortPob(e)}>
+          <option value="selec">Orden Población</option>
           <option value="ascPob">Mayor</option>
           <option value="descPob">Menor</option>
         </select>
-        <h4>Continentes</h4>
-        <select onChange={(e) => handleFiltrado(e)}>
-          <option value="Selec">-Seleccionar-</option>
+        <select className={style.select} onChange={(e) => handleFiltrado(e)}>
+          <option value="Selec">Continentes</option>
           <option value="Todos">Todos</option>
           <option value="North America">América del norte</option>
           <option value="South America">América del sur</option>
@@ -112,33 +113,37 @@ export default function Home() {
           <option value="Europe">Europa</option>
           <option value="Oceania">Oceanía</option>
         </select>
-        <h4>Actividad turística</h4>
-        <select>
+        <select className={style.select}>
           <option value="Actividad">Actividad turística</option>
+          <option value="Actividad">Actividad Creada</option>
         </select>
-        <div className={style.paginado}>
-          <Paginado
-            countriesPerPage={countriesPerPage}
-            allCountries={allCountries.length}
-            paginado={paginado}
-          />
+        <div className={style.search}>
+          <SearchBar />
         </div>
-        <div className={style.cards}>
-          {currentCountries?.map((c) => {
-            //existe countries? si? mapealos
-            return (
-              <NavLink to={"/detail/" + c.id} key={c.id}>
-                <Country
-                  flags={c.flags}
-                  name={c.name}
-                  continents={c.continents}
-                  population={c.population}
-                  key={c.id}
-                />
-              </NavLink>
-            );
-          })}
-        </div>
+      </div>
+      <div className={style.barraPag}>
+        <Paginado
+          className={style.paginado1}
+          countriesPerPage={countriesPerPage}
+          allCountries={allCountries.length}
+          paginado={paginado}
+        />
+      </div>
+      <div className={style.cards}>
+        {currentCountries?.map((c) => {
+          //existe countries? si? mapealos
+          return (
+            <Link className={style.link} to={"/detail/" + c.id} key={c.id}>
+              <Country
+                flags={c.flags}
+                name={c.name}
+                continents={c.continents}
+                population={c.population}
+                key={c.id}
+              />
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

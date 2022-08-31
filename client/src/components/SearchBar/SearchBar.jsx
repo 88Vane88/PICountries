@@ -20,13 +20,18 @@ export default function SearchBar() {
   }
 
   return (
-    <div className={style.global}>
+    <div>
       <input
+        className={style.input}
         type="text"
         placeholder="Buscar país..."
         onChange={(e) => handleInputChange(e)}
       />
-      <button type="submit" onClick={(e) => handleSubmit(e)}>
+      <button
+        className={style.button}
+        type="submit"
+        onClick={(e) => handleSubmit(e)}
+      >
         Buscar
       </button>
     </div>

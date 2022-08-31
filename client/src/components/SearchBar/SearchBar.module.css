@@ -1,4 +1,23 @@
-.global {
-  display: flex;
-  justify-content: center;
+.input {
+  font-weight: bold;
+  font-size: medium;
+  border-radius: 10px;
+  right: 10%;
+  top: 30%;
+  padding: 3px;
 }
+
+.button {
+  font-weight: bold;
+  font-size: medium;
+  border-radius: 10px;
+  right: 10%;
+  top: 30%;
+  padding: 3px;
+}
+
+/*   display: flex;
+  margin-left: 10%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  gap: 30px; */
