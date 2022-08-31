@@ -2,7 +2,7 @@
   background-color: teal;
   width: 100%;
   font-weight: bold;
-  background-image: url("../../img/Mundo.jpg");
+  background-image: url("../../img/fondoLanding.png");
   display: grid;
   height: 100vh;
   background-repeat: no-repeat;
@@ -25,6 +25,9 @@
   justify-content: center;
   padding: 1rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: italic;
+  font-variant: small-caps;
+  color: rgba(34, 30, 30, 0.968);
 }
 
 .info {
@@ -35,15 +38,19 @@
   text-align: right;
   justify-content: center;
   align-items: center;
+  font-style: italic;
 }
 
 .button {
   font-size: medium;
+  font-weight: bold;
+
   border-radius: 5px;
   background-color: aquamarine;
   position: absolute;
   right: 10%;
   top: 30%;
+  padding: 3px;
 
   /*  margin-right: 40px;
   margin-top: 60px; */

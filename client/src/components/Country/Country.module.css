@@ -1,11 +1,35 @@
 .global {
   border: rgba(0, 0, 0, 0.644) solid 2px;
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  height: 200px;
-  background-color: rgba(170, 235, 235, 0.826);
-  position: relative;
+  background-color: rgba(170, 235, 235, 0.629);
   border-radius: 10px;
   align-items: center;
+  flex-direction: row;
+  padding: 30px;
+  flex-wrap: wrap;
+  justify-content: space around;
+  font-size: 15px;
+  /*   width: 300px; */
+  height: 300px;
 }
+
+.img {
+}
+
+.pais {
+  font-family: "Times New Roman", Times, serif;
+  font-size: x-large;
+}
+.cont {
+  font-size: medium;
+  font-family: "Times New Roman", Times, serif;
+}
+.pob {
+  font-family: "Times New Roman", Times, serif;
+  font-size: small;
+}
+
+/*  display: inline-block; */
+
+/* max o min height, display flex */
+/*   justify-content: space-around; */
+/* display flex para alig. flex dir, justy, flexw */

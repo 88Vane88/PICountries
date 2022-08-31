@@ -1,0 +1,36 @@
+.countryContainer {
+  background-color: teal;
+  width: 100%;
+  font-weight: bold;
+  background-image: url("../../img/fondoHome.png");
+  display: grid;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.imgContainer img {
+  width: 200px;
+  height: 200px;
+  border-style: solid;
+  border-radius: 4%;
+}
+
+.detailContainer img {
+  width: 200px;
+  height: 200px;
+  border-style: solid;
+  border-radius: 4%;
+}
+
+.name {
+  font-size: x-large;
+  font-weight: bold;
+  font-family: "Times New Roman", Times, serif;
+}
+.cont {
+  font-size: medium;
+}
+.pob {
+  font-size: small;
+}

@@ -16,7 +16,7 @@ export default function LandingPage() {
           Aprovechá las opciónes que te brindamos.
         </p>
         <Link to="/home">
-          <button className={style.button}> Ingresar al mundo</button>
+          <button className={style.button}> Ingresar</button>
         </Link>
       </div>
     </div>

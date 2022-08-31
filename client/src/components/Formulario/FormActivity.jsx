@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import style from "../Formulario/FormActivity.module.css";
 
 export default function Form() {
   const allCountries = useSelector((state) => state.countries);
@@ -13,15 +14,14 @@ export default function Form() {
     difficulty: "",
     duration: "",
     seasons: "",
+    country: [],
   });
 
   const difficulty = ["1", "2", "3", "4", "5"];
   const seasons = ["-Seleccionar-", "Summer", "Spring", "Winter", "Autumn"];
 
   const [erroresFormulario, setErroresFormulario] = useState({}); //es un obj
-  const [errorButton, setErrorButton] = useState(
-    Object.keys(erroresFormulario).length < 1 ? false : true
-  );
+
   const [countryID, setCountryID] = useState(
     allCountries.map((i) => {
       return { id: i.id, name: i.name };
@@ -89,8 +89,10 @@ export default function Form() {
   }
 
   return (
-    <div>
-      <Link to="/home">Volver</Link>
+    <div className={style.contenedor}>
+      <div className={style.voler}>
+        <Link to="/home">Volver</Link>
+      </div>
       <div>
         <form onSubmit={handleSubmit}>
           <h4>Crear Actividad</h4>
@@ -154,13 +156,6 @@ export default function Form() {
                   {el}
                 </option>
               ))}
-              {/* {erroresFormulario.seasons ? (
-                <h4>
-                  <small>{erroresFormulario.seasons}</small>
-                </h4>
-              ) : (
-                false
-              )} */}
             </select>
           </div>
           <div>
@@ -173,7 +168,7 @@ export default function Form() {
               ))}
             </select>
           </div>
-          <div>
+          <div className={style.submit}>
             <button type="submit">Crear</button>
           </div>
         </form>

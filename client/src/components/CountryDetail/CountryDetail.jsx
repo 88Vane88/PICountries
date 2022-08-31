@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail } from "../../actions/index";
 import { useEffect } from "react";
+import style from "../CountryDetail/CountryDetail.module.css";
 
 export default function Detail(props) {
   console.log(props);
@@ -15,13 +16,16 @@ export default function Detail(props) {
   const myCountry = useSelector((state) => state.detail);
 
   return (
-    <>
-      <div>Nombre : {myCountry.name}</div>
-      <div>Continente: {myCountry.continents}</div>
-      <div>Capital: {myCountry.capital}</div>
-      <div>SubRegion: {myCountry.subregion}</div>
-      <div>Area: {myCountry.area}</div>
-      <div>Population: {myCountry.population}</div>
+    <div className={style.countryContainer}>
+      <div className={style.imgContainer}>
+        <img src={myCountry.flags} alt={myCountry.name} />
+      </div>
+      <div className={style.detailsContainer}>
+        <div className={style.name}>Nombre : {myCountry.name}</div>
+        <div className={style.cont}>Continente: {myCountry.continents}</div>
+        <div className={style.pob}>Población: {myCountry.population}</div>
+      </div>
+
       {myCountry.activities
         ? myCountry.activities.map((c) => {
             return (
@@ -35,12 +39,12 @@ export default function Detail(props) {
             );
           })
         : null}
-      <img src={myCountry.flags} alt={myCountry.name} />
-      <div>
+
+      <div className={style.button}>
         <Link to="/home">
           <button>Regresar</button>
         </Link>
       </div>
-    </>
+    </div>
   );
 }

@@ -69,54 +69,61 @@ export default function Home() {
 
   return (
     <div className={style.img}>
-      <div className={style.contenedor}>
+      <div className={style.linkactvity}>
         <NavLink to="/form">Crear Actividad</NavLink>
+      </div>
+      <div>
         <h1>Conocé los países</h1>
-        {
-          <button
-            onClick={(e) => {
-              handleClick(e);
-            }}
-          >
-            volver a cargar todos los países
-          </button>
-        }
+      </div>
+      {
+        <button
+          onClick={(e) => {
+            handleClick(e);
+          }}
+        >
+          volver a cargar todos los países
+        </button>
+      }
+      <div className={style.search}>
         <SearchBar />
-        <div>
-          <h4>Ordenar de forma alfabetica</h4>
-          <select onChange={(e) => handleSortAlf(e)}>
-            <option value="selec">-Seleccionar-</option>
-            <option value="ascAlf">A-Z</option>
-            <option value="descAlf">Z-A</option>
-          </select>
-          <h4>Ordenar por población</h4>
-          <select onChange={(e) => handleSortPob(e)}>
-            <option value="selec">-Seleccionar-</option>
-            <option value="ascPob">Mayor</option>
-            <option value="descPob">Menor</option>
-          </select>
-          <h4>Continentes</h4>
-          <select onChange={(e) => handleFiltrado(e)}>
-            <option value="Selec">-Seleccionar-</option>
-            <option value="Todos">Todos</option>
-            <option value="North America">América del norte</option>
-            <option value="South America">América del sur</option>
-            <option value="Africa">Africa</option>
-            <option value="Antarctica">Antática</option>
-            <option value="Asia">Asia</option>
-            <option value="Europe">Europa</option>
-            <option value="Oceania">Oceanía</option>
-          </select>
-          <h4>Actividad turística</h4>
-          <select>
-            <option value="Actividad">Actividad turística</option>
-          </select>
-
+      </div>
+      <div className={style.ordenamimentos}>
+        <h4>Ordenar de forma alfabetica</h4>
+        <select onChange={(e) => handleSortAlf(e)}>
+          <option value="selec">-Seleccionar-</option>
+          <option value="ascAlf">A-Z</option>
+          <option value="descAlf">Z-A</option>
+        </select>
+        <h4>Ordenar por población</h4>
+        <select onChange={(e) => handleSortPob(e)}>
+          <option value="selec">-Seleccionar-</option>
+          <option value="ascPob">Mayor</option>
+          <option value="descPob">Menor</option>
+        </select>
+        <h4>Continentes</h4>
+        <select onChange={(e) => handleFiltrado(e)}>
+          <option value="Selec">-Seleccionar-</option>
+          <option value="Todos">Todos</option>
+          <option value="North America">América del norte</option>
+          <option value="South America">América del sur</option>
+          <option value="Africa">Africa</option>
+          <option value="Antarctica">Antática</option>
+          <option value="Asia">Asia</option>
+          <option value="Europe">Europa</option>
+          <option value="Oceania">Oceanía</option>
+        </select>
+        <h4>Actividad turística</h4>
+        <select>
+          <option value="Actividad">Actividad turística</option>
+        </select>
+        <div className={style.paginado}>
           <Paginado
             countriesPerPage={countriesPerPage}
             allCountries={allCountries.length}
             paginado={paginado}
           />
+        </div>
+        <div className={style.cards}>
           {currentCountries?.map((c) => {
             //existe countries? si? mapealos
             return (

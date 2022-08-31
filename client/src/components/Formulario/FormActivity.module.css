@@ -1,0 +1,15 @@
+.contenedor {
+  border: rgba(0, 0, 0, 0.644) solid 2px;
+  position: relative;
+  width: 500px;
+  height: 500px;
+  background-color: rgba(170, 235, 235, 0.629);
+  border-radius: 10px;
+  align-items: center;
+  padding: 30px;
+  display: inline-block;
+}
+
+.volver {
+  font-size: xx-small;
+}
