@@ -88,10 +88,6 @@ function rootReducer(state = initialState, action) {
         ...state,
         detail: action.payload,
       };
-    /*     case "POST_ACTIVITIES": //lo creo en una ruta nueva
-      return {
-        ...state,
-      }; */
 
     default:
       return state;

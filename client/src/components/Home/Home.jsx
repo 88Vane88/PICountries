@@ -70,27 +70,9 @@ export default function Home() {
   return (
     <div className={style.img}>
       <div>
-        <button className={style.linkButton}>
-          <Link className={style.linkactvity} to="/form">
-            Crear Actividad
-          </Link>
-        </button>
-      </div>
-      <div>
         <h1 className={style.titulo}>Conocé los países</h1>
       </div>
-      <div className={style.buttonCargar}>
-        {
-          <button
-            className={style.buttonCargar}
-            onClick={(e) => {
-              handleClick(e);
-            }}
-          >
-            volver a cargar todos los países
-          </button>
-        }
-      </div>
+
       <div className={style.ordenamientos}>
         <select className={style.select} onChange={(e) => handleSortAlf(e)}>
           <option value="selec">Orden Alfabético</option>
@@ -117,8 +99,22 @@ export default function Home() {
           <option value="Actividad">Actividad turística</option>
           <option value="Actividad">Actividad Creada</option>
         </select>
+      </div>
+      <div className={style.buscaRecarga}>
         <div className={style.search}>
           <SearchBar />
+        </div>
+        <div className={style.buttonCargar}>
+          {
+            <button
+              className={style.buttonCargar}
+              onClick={(e) => {
+                handleClick(e);
+              }}
+            >
+              volver a cargar todos los países
+            </button>
+          }
         </div>
       </div>
       <div className={style.barraPag}>
@@ -128,6 +124,13 @@ export default function Home() {
           allCountries={allCountries.length}
           paginado={paginado}
         />
+      </div>
+      <div>
+        <button className={style.linkButton}>
+          <Link className={style.linkactvity} to="/form">
+            Crear Actividad
+          </Link>
+        </button>
       </div>
       <div className={style.cards}>
         {currentCountries?.map((c) => {

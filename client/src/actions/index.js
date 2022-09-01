@@ -38,14 +38,33 @@ export function getDetail(id) {
     }
   };
 }
-
-export function postActivities(payload) {
+/* export const postActivities = (data) => {
   return async function (dispatch) {
-    const info = await axios.post("http://localhost:3001/activities", payload);
-    console.log(info);
-    return info;
+    fetch("http://localhost:3001/activities", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((r) => r.json())
+      .then((json) => dispatch({ type: "CREATE_ACTIVITY", payload: json }));
   };
-}
+}; */
+
+/* export function postActivities(data) {
+  return async function (dispatch) {
+    const info = await axios.post("http://localhost:3001/activities", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    return dispatch({
+      type: "POST_ACTIVITY",
+      payload: info.info,
+    });
+  };
+} */
+
 export function orderByName(payload) {
   return {
     type: "ORDER_BY_NAME",

@@ -1,36 +1,51 @@
-.countryContainer {
-  background-color: teal;
-  width: 100%;
-  font-weight: bold;
+.img {
   background-image: url("../../img/fondoHome.png");
-  display: grid;
-  height: 100vh;
-  background-repeat: no-repeat;
   background-size: cover;
 }
 
-.imgContainer img {
-  width: 200px;
-  height: 200px;
-  border-style: solid;
-  border-radius: 4%;
+.global {
+  background-color: aliceblue;
+  display: grid;
+  width: 30%;
+  height: 30vw;
+  margin-left: 30%;
+  align-items: center;
+  border-radius: 1.4vw;
+  box-shadow: 1vw 1vw 1vw black;
+  margin-top: 5%;
 }
 
-.detailContainer img {
-  width: 200px;
-  height: 200px;
-  border-style: solid;
-  border-radius: 4%;
+.flag {
+  width: 60%;
+  height: 60%;
+  margin-left: 20%;
 }
 
-.name {
-  font-size: x-large;
-  font-weight: bold;
+.info {
+  margin-left: 30%;
+}
+
+.pais {
   font-family: "Times New Roman", Times, serif;
+  font-size: x-large;
+  color: black;
 }
 .cont {
   font-size: medium;
+  font-family: "Times New Roman", Times, serif;
+  color: black;
 }
 .pob {
+  font-family: "Times New Roman", Times, serif;
   font-size: small;
+  color: black;
+}
+.buttonReg {
+  display: flex;
+  font-size: medium;
+  font-weight: bold;
+  border-radius: 10px;
+  right: 10%;
+  top: 30%;
+  padding: 3px;
 }

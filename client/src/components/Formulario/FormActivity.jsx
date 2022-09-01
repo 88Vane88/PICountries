@@ -1,11 +1,17 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { postActivities, getCountries } from "../../actions/index";
 import { Link } from "react-router-dom";
 import style from "../Formulario/FormActivity.module.css";
 
 export default function Form() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCountries());
+  }, [dispatch]);
+
   const allCountries = useSelector((state) => state.countries);
 
   const [activity, setActivity] = useState({
@@ -17,16 +23,7 @@ export default function Form() {
     country: [],
   });
 
-  const difficulty = ["1", "2", "3", "4", "5"];
-  const seasons = ["-Seleccionar-", "Summer", "Spring", "Winter", "Autumn"];
-
   const [erroresFormulario, setErroresFormulario] = useState({}); //es un obj
-
-  const [countryID, setCountryID] = useState(
-    allCountries.map((i) => {
-      return { id: i.id, name: i.name };
-    })
-  );
 
   const expresionName = /^[a-zA-ZñÑáÁéÉíÍóÓuÚ]*$/;
   const expresionDuration = /^[0-9]*$/;
@@ -62,12 +59,12 @@ export default function Form() {
     console.log(activity);
   }
 
-  /*   function handleCountries(e) {
-    setCountryID({
+  function handleCountries(e) {
+    setActivity({
       ...activity,
-      countries: e.target.value,
+      countries: [...activity.country, e.target.value],
     });
-  } */
+  }
 
   function handleSeasons(e) {
     setActivity({
@@ -75,6 +72,11 @@ export default function Form() {
       seasons: e.target.value,
     });
     console.log(activity);
+  }
+
+  function handleClick(e) {
+    e.preventDefault();
+    dispatch(postActivities(activity));
   }
 
   function validar(activity) {
@@ -90,86 +92,98 @@ export default function Form() {
 
   return (
     <div className={style.contenedor}>
-      <div className={style.volver}>
-        <Link to="/home">Volver</Link>
-      </div>
+      <h1>Crear Actividad</h1>
       <div>
-        <form onSubmit={handleSubmit}>
-          <h4>Crear Actividad</h4>
-          <div>
-            <label>Name</label>
+        <form className={style.form} onSubmit={handleSubmit}>
+          <div className={style.form_grupos}>
             <input
+              className={style.form_input}
               name="name"
+              id="name"
               value={activity.name}
               onChange={handleChange}
-              placeholder="actividad"
+              placeholder=" "
               type="text"
-            ></input>
+            />
+            <label className={style.form_label} htmlFor="name">
+              Name:{" "}
+            </label>
             {erroresFormulario.name ? (
-              <h4>
-                <small>{erroresFormulario.name}</small>
-              </h4>
-            ) : (
-              false
-            )}
+              <span className={style.error}>{erroresFormulario.name}</span>
+            ) : null}
           </div>
-          <div>
-            {/* si hay error, mostramelo, sino no */}
-            <label>Difficulty</label>
-            <select
-              name="difficulty"
-              value={activity.difficulty}
-              onChange={handleDifficulty}
-            >
-              {difficulty.map((el) => (
-                <option key={el} value={el}>
-                  {el}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label>Duration</label>
+          <br />
+          <div className={style.form_grupos}>
             <input
+              className={style.form_input}
               name="duration"
               value={activity.duration}
               onChange={handleChange}
-              placeholder="1, 2..."
-            ></input>
+              placeholder=" "
+              type="number"
+              id="duration"
+            />
+            <label className={style.form_label}>Duration: </label>
             {erroresFormulario.duration ? (
-              <h4>
-                <small>{erroresFormulario.duration}</small>
-              </h4>
-            ) : (
-              false
-            )}
+              <span className={style.error}>{erroresFormulario.duration}</span>
+            ) : null}
           </div>
+          <br />
+          <div className={style.form_grupos}>
+            <select
+              name="difficulty"
+              id="difficulty"
+              value={activity.difficulty}
+              onChange={handleDifficulty}
+            >
+              <option>Difficulty</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <br />
           <div>
-            <label>Seasons</label>
             <select
               name="seasons"
+              id="seasons"
               value={activity.seasons}
               onChange={handleSeasons}
             >
-              {seasons.map((el) => (
-                <option key={el} value={el}>
-                  {el}
-                </option>
-              ))}
+              <option>Season</option>
+              <option value="Summer">Summer</option>
+              <option value="Autumn">Autumn</option>
+              <option value="Winter">Winter</option>
+              <option value="Spring">Spring</option>
             </select>
           </div>
+          <br />
           <div>
-            <label value="countries">Country: </label>
-            <select name="countries" id="countries">
-              {countryID?.map((i) => (
+            <select onChange={handleCountries} name="countries" id="countries">
+              <option>Elegir Countries</option>
+              {allCountries?.map((i) => (
                 <option key={i.id} value={i.id}>
                   {i.name}
                 </option>
               ))}
             </select>
           </div>
+          <br />
           <div className={style.submit}>
-            <button type="submit">Crear</button>
+            <button
+              type="submit"
+              onClick={(e) => {
+                handleClick(e);
+              }}
+            >
+              Crear
+            </button>
+            {postActivities.id ? <span>Creado exitosamente</span> : null}
+          </div>
+          <div className={style.volver}>
+            <Link to="/home">Volver</Link>
           </div>
         </form>
       </div>

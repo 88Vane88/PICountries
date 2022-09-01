@@ -10,6 +10,10 @@
   /*   opacity: 0.7;
   position: absolute; */
 /*  background-attachment: scroll; */
+.img {
+  background-image: url("../../img/fondoHome.png");
+  background-size: cover;
+}
 
 .infoGlobal {
   display: flex;
@@ -31,8 +35,10 @@
   top: 30%;
   padding: 3px;
   font-size: medium;
-  margin-left: 10px;
+  margin-left: 45%;
   border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: rgba(159, 232, 208, 0.45);
 }
 
 .titulo {
@@ -40,7 +46,7 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   /*   font-weight: bold; */
-  color: blueviolet;
+  color: rgb(224, 31, 53);
   font-variant: small-caps;
   font-style: oblique;
   font-size: 500%;
@@ -50,16 +56,15 @@
   display: flex;
   font-size: medium;
   font-weight: bold;
+  border-radius: 10px;
   right: 10%;
   top: 30%;
   padding: 3px;
 }
-.activityPaises {
-}
 
 .ordenamientos {
   display: flex;
-  margin-left: 10%;
+  margin-left: 20%;
   margin-top: 10px;
   margin-bottom: 10px;
   gap: 30px;
@@ -69,6 +74,15 @@
   font-weight: bold;
   font-size: medium;
   border-radius: 10px;
+  padding: 10px;
+}
+
+.buscaRecarga {
+  display: flex;
+  margin-left: 30%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  gap: 30px;
 }
 
 .cards {
