@@ -50,7 +50,7 @@ export function getDetail(id) {
   };
 }; */
 
-/* export function postActivities(data) {
+export function postActivities(data) {
   return async function (dispatch) {
     const info = await axios.post("http://localhost:3001/activities", {
       method: "POST",
@@ -63,7 +63,7 @@ export function getDetail(id) {
       payload: info.info,
     });
   };
-} */
+}
 
 export function orderByName(payload) {
   return {
