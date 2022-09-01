@@ -38,7 +38,7 @@ export function getDetail(id) {
     }
   };
 }
-/* export const postActivities = (data) => {
+export const postActivities = (data) => {
   return async function (dispatch) {
     fetch("http://localhost:3001/activities", {
       method: "POST",
@@ -48,9 +48,9 @@ export function getDetail(id) {
       .then((r) => r.json())
       .then((json) => dispatch({ type: "CREATE_ACTIVITY", payload: json }));
   };
-}; */
+};
 
-export function postActivities(data) {
+/* export function postActivities(data) {
   return async function (dispatch) {
     const info = await axios.post("http://localhost:3001/activities", {
       method: "POST",
@@ -63,7 +63,7 @@ export function postActivities(data) {
       payload: info.info,
     });
   };
-}
+} */
 
 export function orderByName(payload) {
   return {
