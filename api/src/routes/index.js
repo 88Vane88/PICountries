@@ -36,7 +36,7 @@ router.get("/countries", async (req, res) => {
   if (!name) {
     try {
       const api = await axios.get("https://restcountries.com/v3/all");
-      const juntos = api.data.map((c) => {
+      const juntos = await api.data.map((c) => {
         const obj = {
           id: c.cca3,
           name: c.name.common,
@@ -49,17 +49,37 @@ router.get("/countries", async (req, res) => {
         };
         return obj;
       });
-
+      juntos.forEach((i) =>
+        Country.findOrCreate({
+          where: {
+            id: i.id,
+            name: i.name,
+            flags: i.flags,
+            continents: i.continents,
+            capital: i.capital,
+            subregion: i.subregion,
+            area: i.area,
+            population: i.population,
+          },
+        })
+      );
+      const countrys = await Country.findAll({
+        include: [Activity],
+      });
+      res.send(countrys);
+      return countrys;
+      /* 
       let prueba = await Country.findAll();
       if (prueba.length === 0) {
         await Country.bulkCreate(juntos);
       }
 
-      res.json(juntos);
+      res.json(juntos); */
     } catch (error) {
       console.log(error);
     }
-  } else {
+  }
+  /*   else {
     try {
       let coun = await Country.findAll({
         where: {
@@ -72,14 +92,19 @@ router.get("/countries", async (req, res) => {
     } catch (error) {
       console.log("No existe ese país");
     }
-  }
+  } */
 });
 
 router.get("/countries/:name", async (req, res) => {
   const { name } = req.params;
   try {
-    const filtrados = countries.filter((c) => c.name === name);
-    res.json(filtrados);
+    /*     const filtrados = countries.filter((c) => c.name === name); */
+    const encontrado = await Country.find({
+      where: { id: name },
+      include: [Activity],
+    });
+
+    res.json(encontrado);
   } catch (error) {
     console.log(error);
   }
@@ -89,21 +114,8 @@ router.post("/activities", async (req, res) => {
   //crear nueva actividad. Por body
   //recibir datos y separarlos; validar datos; agregarla a bd; validar
   const { name, difficulty, duration, seasons, country } = req.body;
+  console.log(req.body);
   if (!seasons) res.status(400).json({ msg: "Faltan ingresar datos" });
-
-  const regex = /^[a-zA-ZñÑáÁéÉíÍóÓuÚ]*$/;
-  const textoName = regex.test(name);
-  if (!textoName) res.status(400).json({ msg: "No son letras" });
-
-  const comprobacion = /^[0-9]*$/;
-  const numDuration = comprobacion.test(duration);
-  if (!numDuration) res.status(400).json({ msg: "Ingresar solo números" });
-
-  const comp = /^[1-5]*$/;
-  const numDifficulty = comp.test(difficulty);
-  if (!numDifficulty)
-    res.status(400).json({ msg: "Ingresar solo númenos del 1 al 5" });
-
   try {
     const obj = { name, difficulty, duration, seasons };
     const nuevaActivity = await Activity.create(obj);

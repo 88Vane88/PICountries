@@ -1,13 +1,13 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("activity", {
+  sequelize.define("Activity", {
     name: {
       type: DataTypes.STRING,
       allowNull: true,
     },
     difficulty: {
-      type: DataTypes.ENUM("1", "2", "3", "4", "5"),
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     duration: {
@@ -18,6 +18,10 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM("Summer", "Autumn", "Winter", "Spring"),
       allowNull: false,
     },
+    /*     countries: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+    }, */
     createdInDb: {
       // para acceder mas facil despues
       type: DataTypes.BOOLEAN,
